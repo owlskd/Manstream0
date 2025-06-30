@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Konsultasi | Manstream</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .fade-in {
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .custom-radio input[type="radio"],
+    .custom-checkbox input[type="checkbox"] {
+      display: none;
+    }
+    .custom-radio label,
+    .custom-checkbox label {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      border: 2px solid #E2E8F0;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .custom-radio label:hover,
+    .custom-checkbox label:hover {
+      border-color: #CBD5E0;
+      background-color: #F7FAFC;
+    }
+    .custom-radio input[type="radio"]:checked + label,
+    .custom-checkbox input[type="checkbox"]:checked + label {
+      border-color: #8B5E3C;
+      background-color: #FEF6E9;
+    }
+    .custom-radio input[type="radio"]:checked + label:before,
+    .custom-checkbox input[type="checkbox"]:checked + label:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background-color: #8B5E3C;
+      border-top-left-radius: 0.375rem;
+      border-bottom-left-radius: 0.375rem;
+    }
+    .custom-radio .radio-icon,
+    .custom-checkbox .checkbox-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.5rem;
+      height: 1.5rem;
+      border: 2px solid #CBD5E0;
+      margin-right: 1rem;
+      transition: all 0.3s ease;
+    }
+    .custom-radio .radio-icon {
+      border-radius: 50%;
+    }
+    .custom-checkbox .checkbox-icon {
+      border-radius: 0.25rem;
+    }
+    .custom-radio input[type="radio"]:checked + label .radio-icon,
+    .custom-checkbox input[type="checkbox"]:checked + label .checkbox-icon {
+      border-color: #8B5E3C;
+      background-color: #8B5E3C;
+    }
+    .custom-radio input[type="radio"]:checked + label .radio-icon:after {
+      content: '';
+      width: 0.5rem;
+      height: 0.5rem;
+      background-color: white;
+      border-radius: 50%;
+      display: block;
+    }
+    .custom-checkbox input[type="checkbox"]:checked + label .checkbox-icon:after {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      color: white;
+      font-size: 0.75rem;
+      display: block;
+    }
+    .step-indicator {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+    .step-indicator:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: #E2E8F0;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    .step {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .step-circle {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background-color: white;
+      border: 2px solid #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+    }
+    .step.active .step-circle {
+      border-color: #8B5E3C;
+      background-color: #8B5E3C;
+      color: white;
+    }
+    .step.completed .step-circle {
+      border-color: #8B5E3C;
+      background-color: #8B5E3C;
+      color: white;
+    }
+    .step.completed .step-circle:after {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+    }
+    .step-title {
+      font-size: 0.75rem;
+      color: #4A5568;
+      text-align: center;
+      max-width: 100px;
+    }
+    .step.active .step-title {
+      color: #8B5E3C;
+      font-weight: 600;
+    }
+    .step.completed .step-title {
+      color: #8B5E3C;
+    }
+    .progress-bar {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: 2px;
+      background-color: #8B5E3C;
+      transform: translateY(-50%);
+      z-index: 1;
+      transition: width 0.3s ease;
+    }
+    .btn {
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    .btn:active {
+      transform: translateY(0);
+    }
+    .bg-accent {
+      background-color: #8B5E3C;
+    }
+    .text-accent {
+      color: #8B5E3C;
+    }
+    .text-secondary {
+      color: #6B7280;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">Dapatkan Rekomendasi Skincare Halal Personal Anda</h1>
+        <p class="text-secondary text-lg">
+          Jawab beberapa pertanyaan singkat ini untuk kami memahami kebutuhan kulit Anda dan merekomendasikan solusi perawatan yang paling tepat.
+        </p>
+      </div>
+      <!-- Step Indicator -->
+      <div class="step-indicator mb-12">
+        <div class="progress-bar" id="progress-bar"></div>
+        <div class="step active" data-step="1">
+          <div class="step-circle">1</div>
+          <div class="step-title">Kondisi Kulit</div>
+        </div>
+        <div class="step" data-step="2">
+          <div class="step-circle">2</div>
+          <div class="step-title">Masalah Kulit</div>
+        </div>
+        <div class="step" data-step="3">
+          <div class="step-circle">3</div>
+          <div class="step-title">Kondisi Napas</div>
+        </div>
+        <div class="step" data-step="4">
+          <div class="step-circle">4</div>
+          <div class="step-title">Jenggot</div>
+        </div>
+        <div class="step" data-step="5">
+          <div class="step-circle">5</div>
+          <div class="step-title">Aktivitas</div>
+        </div>
+      </div>
+      <!-- Quiz Form -->
+      <form id="skincare-quiz" class="bg-white rounded-xl shadow-md p-6 md:p-8">
+        <!-- Step 1: Kondisi Kulit Wajah -->
+        <div class="step-content fade-in" id="step-1">
+          <h2 class="text-2xl font-semibold mb-6">Bagaimana kondisi kulit wajah Anda?</h2>
+          <p class="text-secondary mb-8">Pilih kondisi yang paling menggambarkan kulit wajah Anda secara umum.</p>
+          <div class="space-y-4">
+            <div class="custom-radio">
+              <input type="radio" name="skin_condition" id="skin_oily" value="berminyak" required>
+              <label for="skin_oily">
+                <div class="radio-icon"></div>
+                <div>
+                  <span class="font-medium">Berminyak</span>
+                  <p class="text-sm text-secondary mt-1">Wajah terlihat mengkilap, terutama di area T-zone</p>
+                </div>
+              </label>
+            </div>
+            <div class="custom-radio">
+              <input type="radio" name="skin_condition" id="skin_dry" value="kering">
+              <label for="skin_dry">
+                <div class="radio-icon"></div>
+                <div>
+                  <span class="font-medium">Kering</span>
+                  <p class="text-sm text-secondary mt-1">Kulit terasa kencang, kasar, atau bersisik</p>
+                </div>
+              </label>
+            </div>
+            <div class="custom-radio">
+              <input type="radio" name="skin_condition" id="skin_combination" value="kombinasi">
+              <label for="skin_combination">
+                <div class="radio-icon"></div>
+                <div>
+                  <span class="font-medium">Kombinasi</span>
+                  <p class="text-sm text-secondary mt-1">Berminyak di area T-zone, normal atau kering di area lain</p>
+                </div>
+              </label>
+            </div>
+            <div class="custom-radio">
+              <input type="radio" name="skin_condition" id="skin_normal" value="normal">
+              <label for="skin_normal">
+                <div class="radio-icon"></div>
+                <div>
+                  <span class="font-medium">Normal</span>
+                  <p class="text-sm text-secondary mt-1">Tidak terlalu berminyak atau kering, terasa seimbang</p>
+                </div>
+              </label>
+            </div>
+            <div class="custom-radio">
+              <input type="radio" name="skin_condition" id="skin_sensitive" value="sensitif">
+              <label for="skin_sensitive">
+                <div class="radio-icon"></div>
+                <div>
+                  <span class="font-medium">Sensitif</span>
+                  <p class="text-sm text-secondary mt-1">Mudah iritasi, kemerahan, atau gatal</p>
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="mt-10 flex justify-end">
+            <button type="button" class="btn next-step bg-accent text-white px-8 py-3 rounded-md font-medium">
+              Lanjutkan <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Step 2: Masalah Kulit Wajah -->
+        <div class="step-content hidden" id="step-2">
+          <h2 class="text-2xl font-semibold mb-6">Masalah kulit apa yang ingin Anda atasi?</h2>
+          <p class="text-secondary mb-8">Pilih satu atau lebih masalah kulit yang ingin Anda perbaiki.</p>
+          <div class="space-y-4">
+            <div class="custom-checkbox">
+              <input type="checkbox" name="skin_issues" id="issue_acne" value="jerawat">
+              <label for="issue_acne">
+                <div class="checkbox-icon"></div>
+                <div>
+                  <span class="font-medium">Jerawat</span>
+                  <p class="text-sm text-secondary mt-1">Jerawat aktif atau bekas jerawat</p>
+                </div>
+              </label>
+            </div>
+            <div class="custom-checkbox">
+              <input type="checkbox" name="skin_issues" id="issue_dull" value="kusam">
+              <label for="issue_dull">
+                <div class="checkbox-icon"></div>
+                <div>
+                  <span class="font-medium">Kusam</span>
+                  <p class="text-sm text-secondary mt-1">Kulit terlihat lelah dan kurang cerah</p>
+                </div>
+              </label>
+            </div>
+            <div class="custom-checkbox">
+              <input type="checkbox" name="skin_issues" id="issue_dry" value="kering">
+              <label for="issue_dry">
+                <div class="checkbox-icon"></div>
+                <div>
+                  <span class="font-medium">Kulit Kering/Bersisik</span>
+                  <p class="text-sm text-secondary mt-1">Kulit terasa kencang atau terlihat bersisik</p>
+                </div>
+              </label>
+            </div>
+            <div class="custom-checkbox">
+              <input type="checkbox" name="skin_issues" id="issue_pores" value="pori-besar">
+              <label for="issue_pores">
+                <div class="checkbox-icon"></div>
+                <div>
+                  <span class="font-medium">Pori-pori Besar</span>
+                  <p class="text-sm text-secondary mt-1">Pori-pori terlihat jelas terutama di area hidung dan pipi</p>
+                </div>
+              </label>
+            </div>
+            <div class="custom-checkbox">
+              <input type="checkbox" name="skin_issues" id="issue_aging" value="penuaan">
+              <label for="issue_aging">
+                <div class="checkbox-icon"></div>
+                <div>
+                  <span class="font-medium">Tanda Penuaan</span>
+                  <p class="text-sm text-secondary mt-1">Garis halus, kerutan, atau kulit kendur</p>
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="mt-10 flex justify-between">
+            <button type="button" class="btn prev-step border-2 border-gray-300 text-secondary px-6 py-3 rounded-md font-medium hover:bg-gray-50">
+              <i class="fas fa-arrow-left mr-2"></i> Kembali
+            </button>
+            <button type="button" class="btn next-step bg-accent text-white px-8 py-3 rounded-md font-medium">
+              Lanjutkan <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Step 3: Kondisi Napas -->
+        <div class="step-content hidden" id="step-3">
+          <h2 class="text-2xl font-semibold mb-6">Bagaimana kondisi napas Anda?</h2>
+          <p class="text-secondary mb-8">Pilih kondisi yang paling menggambarkan kesegaran napas Anda.</p>
+          <div class="space-y-4">
+            <div class="custom-radio">
+              <input type="radio" name="breath_condition" id="breath_not_fresh" value="tidaksegar" required>
+              <label for="breath_not_fresh">
+                <div class="radio-icon"></div>
+                <div>
+                  <span class="font-medium">Tidak segar</span>
+                  <p class="text-sm text-secondary mt-1">Sering merasa napas kurang segar terutama setelah bangun tidur atau makan</p>
+                </div>
+              </label>
+            </div>
+            <div class="custom-radio">
+              <input type="radio" name="breath_condition" id="breath_moderate" value="cukupsegar">
+              <label for="breath_moderate">
+                <div class="radio-icon"></div>
+                <div>
+                  <span class="font-medium">Cukup segar</span>
+                  <p class="text-sm text-secondary mt-1">Terkadang merasa napas kurang segar dalam situasi tertentu</p>
+                </div>
+              </label>
+            </div>
+            <div class="custom-radio">
+              <input type="radio" name="breath_condition" id="breath_fresh" value="sangat-segar">
+              <label for="breath_fresh">
+                <div class="radio-icon"></div>
+                <div>
+                  <span class="font-medium">Sangat segar</span>
+                  <p class="text-sm text-secondary mt-1">Jarang atau tidak pernah merasa napas kurang segar</p>
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="mt-10 flex justify-between">
+            <button type="button" class="btn prev-step border-2 border-gray-300 text-secondary px-6 py-3 rounded-md font-medium hover:bg-gray-50">
+              <i class="fas fa-arrow-left mr-2"></i> Kembali
+            </button>
+            <button type="button" class="btn next-step bg-accent text-white px-8 py-3 rounded-md font-medium">
+              Lanjutkan <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Step 4: Jenggot -->
+        <div class="step-content hidden" id="step-4">
+          <h2 class="text-2xl font-semibold mb-6">Apakah Anda memiliki jenggot?</h2>
+          <p class="text-secondary mb-8">Pilih jawaban yang sesuai dengan kondisi Anda.</p>
+          <div class="space-y-4">
+            <div class="custom-radio">
+              <input type="radio" name="has_beard" id="beard_yes" value="ya" required>
+              <label for="beard_yes">
+                <div class="radio-icon"></div>
+                <div>
+                  <span class="font-medium">Ya</span>
+                  <p class="text-sm text-secondary mt-1">Saya memiliki jenggot atau kumis</p>
+                </div>
+              </label>
+            </div>
+            <div class="custom-radio">
+              <input type="radio" name="has_beard" id="beard_no" value="tidak">
+              <label for="beard_no">
+                <div class="radio-icon"></div>
+                <div>
+                  <span class="font-medium">Tidak</span>
+                  <p class="text-sm text-secondary mt-1">Saya tidak memiliki jenggot atau kumis</p>
+                </div>
+              </label>
+            </div>
+          </div>
+          <!-- Conditional Question for Beard Condition -->
+          <div id="beard-condition-question" class="mt-8 hidden">
+            <h3 class="text-xl font-semibold mb-4">Bagaimana kondisi jenggot Anda?</h3>
+            <p class="text-secondary mb-6">Pilih kondisi yang paling menggambarkan jenggot Anda.</p>
+            <div class="space-y-4">
+              <div class="custom-radio">
+                <input type="radio" name="beard_condition" id="beard_dry" value="kering">
+                <label for="beard_dry">
+                  <div class="radio-icon"></div>
+                  <div>
+                    <span class="font-medium">Kering/Kasar</span>
+                    <p class="text-sm text-secondary mt-1">Jenggot terasa kasar dan kering saat disentuh</p>
+                  </div>
+                </label>
+              </div>
+              <div class="custom-radio">
+                <input type="radio" name="beard_condition" id="beard_unruly" value="sulit-diatur">
+                <label for="beard_unruly">
+                  <div class="radio-icon"></div>
+                  <div>
+                    <span class="font-medium">Sulit diatur</span>
+                    <p class="text-sm text-secondary mt-1">Jenggot sulit diatur dan sering berantakan</p>
+                  </div>
+                </label>
+              </div>
+              <div class="custom-radio">
+                <input type="radio" name="beard_condition" id="beard_itchy" value="gatal">
+                <label for="beard_itchy">
+                  <div class="radio-icon"></div>
+                  <div>
+                    <span class="font-medium">Gatal</span>
+                    <p class="text-sm text-secondary mt-1">Kulit di bawah jenggot sering terasa gatal</p>
+                  </div>
+                </label>
+              </div>
+              <div class="custom-radio">
+                <input type="radio" name="beard_condition" id="beard_normal" value="normal">
+                <label for="beard_normal">
+                  <div class="radio-icon"></div>
+                  <div>
+                    <span class="font-medium">Normal</span>
+                    <p class="text-sm text-secondary mt-1">Jenggot dalam kondisi baik dan mudah diatur</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="mt-10 flex justify-between">
+            <button type="button" class="btn prev-step border-2 border-gray-300 text-secondary px-6 py-3 rounded-md font-medium hover:bg-gray-50">
+              <i class="fas fa-arrow-left mr-2"></i> Kembali
+            </button>
+            <button type="button" class="btn next-step bg-accent text-white px-8 py-3 rounded-md font-medium">
+              Lanjutkan <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Step 5: Aktivitas Luar Ruangan -->
+        <div class="step-content hidden" id="step-5">
+          <h2 class="text-2xl font-semibold mb-6">Seberapa sering Anda beraktivitas di luar ruangan?</h2>
+          <p class="text-secondary mb-8">Pilih frekuensi aktivitas Anda di bawah sinar matahari langsung.</p>
+          <div class="space-y-4">
+            <div class="custom-radio">
+              <input type="radio" name="outdoor_activity" id="outdoor_rarely" value="jarang" required>
+              <label for="outdoor_rarely">
+                <div class="radio-icon"></div>
+                <div>
+                  <span class="font-medium">Jarang</span>
+                  <p class="text-sm text-secondary mt-1">Sebagian besar waktu dihabiskan di dalam ruangan</p>
+                </div>
+              </label>
+            </div>
+            <div class="custom-radio">
+              <input type="radio" name="outdoor_activity" id="outdoor_sometimes" value="kadang">
+              <label for="outdoor_sometimes">
+                <div class="radio-icon"></div>
+                <div>
+                  <span class="font-medium">Kadang-kadang</span>
+                  <p class="text-sm text-secondary mt-1">Beberapa kali dalam seminggu beraktivitas di luar ruangan</p>
+                </div>
+              </label>
+            </div>
+            <div class="custom-radio">
+              <input type="radio" name="outdoor_activity" id="outdoor_often" value="sering">
+              <label for="outdoor_often">
+                <div class="radio-icon"></div>
+                <div>
+                  <span class="font-medium">Sering</span>
+                  <p class="text-sm text-secondary mt-1">Hampir setiap hari beraktivitas di luar ruangan</p>
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="mt-10 flex justify-between">
+            <button type="button" class="btn prev-step border-2 border-gray-300 text-secondary px-6 py-3 rounded-md font-medium hover:bg-gray-50">
+              <i class="fas fa-arrow-left mr-2"></i> Kembali
+            </button>
+            <button type="submit" class="btn bg-accent text-white px-10 py-4 rounded-md font-semibold text-lg tracking-wide hover:bg-opacity-90">
+              LIHAT REKOMENDASI SAYA
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
+  <footer class="bg-gray-100 py-8">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <p class="text-secondary text-sm mb-4 md:mb-0">
+          &copy; 2023 Manstream. Hak Cipta Dilindungi.
+        </p>
+        <div class="flex space-x-6">
+          <a href="#" class="text-secondary text-sm hover:text-accent transition-colors duration-300">Syarat & Ketentuan</a>
+          <a href="#" class="text-secondary text-sm hover:text-accent transition-colors duration-300">Kebijakan Privasi</a>
+          <a href="#" class="text-secondary text-sm hover:text-accent transition-colors duration-300">FAQ</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    // Consultation Quiz Logic
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('skincare-quiz');
+      const steps = document.querySelectorAll('.step-content');
+      const stepIndicators = document.querySelectorAll('.step');
+      const progressBar = document.getElementById('progress-bar');
+      const nextButtons = document.querySelectorAll('.next-step');
+      const prevButtons = document.querySelectorAll('.prev-step');
+      const beardYesRadio = document.getElementById('beard_yes');
+      const beardNoRadio = document.getElementById('beard_no');
+      const beardConditionQuestion = document.getElementById('beard-condition-question');
+
+      let currentStep = 0;
+      const totalSteps = steps.length;
+
+      // Update progress bar
+      function updateProgressBar() {
+        const progress = ((currentStep + 1) / totalSteps) * 100;
+        progressBar.style.width = `${progress}%`;
+      }
+
+      // Show current step
+      function showStep(stepIndex) {
+        steps.forEach((step, index) => {
+          if (index === stepIndex) {
+            step.classList.remove('hidden');
+            step.classList.add('fade-in');
+          } else {
+            step.classList.add('hidden');
+            step.classList.remove('fade-in');
+          }
+        });
+
+        stepIndicators.forEach((indicator, index) => {
+          if (index < stepIndex) {
+            indicator.classList.add('completed');
+            indicator.classList.remove('active');
+          } else if (index === stepIndex) {
+            indicator.classList.add('active');
+            indicator.classList.remove('completed');
+          } else {
+            indicator.classList.remove('active', 'completed');
+          }
+        });
+
+        updateProgressBar();
+      }
+
+      // Next step button click
+      nextButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Validate current step
+          if (validateStep(currentStep)) {
+            currentStep++;
+            if (currentStep < totalSteps) {
+              showStep(currentStep);
+            }
+          }
+        });
+      });
+
+      // Previous step button click
+      prevButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          currentStep--;
+          if (currentStep >= 0) {
+            showStep(currentStep);
+          }
+        });
+      });
+
+      // Validate step
+      function validateStep(stepIndex) {
+        switch(stepIndex) {
+          case 0: // Skin Condition
+            const skinCondition = form.querySelector('input[name="skin_condition"]:checked');
+            if (!skinCondition) {
+              alert('Silakan pilih kondisi kulit Anda.');
+              return false;
+            }
+            return true;
+          case 1: // Skin Issues
+            const skinIssues = form.querySelectorAll('input[name="skin_issues"]:checked');
+            if (skinIssues.length === 0) {
+              alert('Silakan pilih minimal satu masalah kulit.');
+              return false;
+            }
+            return true;
+          case 2: // Breath Condition
+            const breathCondition = form.querySelector('input[name="breath_condition"]:checked');
+            if (!breathCondition) {
+              alert('Silakan pilih kondisi napas Anda.');
+              return false;
+            }
+            return true;
+          case 3: // Beard
+            const hasBeard = form.querySelector('input[name="has_beard"]:checked');
+            if (!hasBeard) {
+              alert('Silakan pilih apakah Anda memiliki jenggot.');
+              return false;
+            }
+            if (hasBeard.value === 'ya') {
+              const beardCondition = form.querySelector('input[name="beard_condition"]:checked');
+              if (!beardCondition) {
+                alert('Silakan pilih kondisi jenggot Anda.');
+                return false;
+              }
+            }
+            return true;
+          default:
+            return true;
+        }
+      }
+
+      // Handle beard condition question visibility
+      beardYesRadio.addEventListener('change', () => {
+        if (beardYesRadio.checked) {
+          beardConditionQuestion.classList.remove('hidden');
+          beardConditionQuestion.classList.add('fade-in');
+        }
+      });
+      beardNoRadio.addEventListener('change', () => {
+        if (beardNoRadio.checked) {
+          beardConditionQuestion.classList.add('hidden');
+          // Reset beard condition selection
+          const beardConditionRadios = document.querySelectorAll('input[name="beard_condition"]');
+          beardConditionRadios.forEach(radio => {
+            radio.checked = false;
+          });
+        }
+      });
+
+      // Form submission
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Validate final step
+        if (!validateStep(currentStep)) {
+          return;
+        }
+        // Collect form data
+        const formData = new FormData(form);
+        const quizData = {};
+        for (let [key, value] of formData.entries()) {
+          if (key === 'skin_issues') {
+            if (!quizData[key]) {
+              quizData[key] = [];
+            }
+            quizData[key].push(value);
+          } else {
+            quizData[key] = value;
+          }
+        }
+        // Store data in localStorage
+        localStorage.setItem('manstream_quiz_data', JSON.stringify(quizData));
+        // Redirect to recommendations page
+        window.location.href = 'rekomendasi.html';
+      });
+
+      // Initialize first step
+      showStep(currentStep);
+
+      // Custom radio and checkbox styling
+      const customInputs = document.querySelectorAll('.custom-radio input, .custom-checkbox input');
+      customInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          if (this.type === 'radio') {
+            // Uncheck all other radios in the same group
+            const name = this.name;
+            document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+              const label = radio.nextElementSibling;
+              if (radio.checked) {
+                label.classList.add('checked');
+              } else {
+                label.classList.remove('checked');
+              }
+            });
+          } else if (this.type === 'checkbox') {
+            const label = this.nextElementSibling;
+            if (this.checked) {
+              label.classList.add('checked');
+            } else {
+              label.classList.remove('checked');
+            }
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html> 

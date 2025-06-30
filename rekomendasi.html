@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rekomendasi Produk | Manstream</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .fade-in {
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .product-card {
+      transition: all 0.3s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    .cta-button {
+      transition: all 0.3s ease;
+    }
+    .cta-button:hover {
+      transform: translateY(-2px);
+    }
+    .product-image {
+      position: relative;
+      overflow: hidden;
+    }
+    .product-image::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 70%, rgba(0,0,0,0.1) 100%);
+    }
+    .product-tag {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 10;
+    }
+    .bg-accent {
+      background-color: #8B5E3C;
+    }
+    .text-accent {
+      color: #8B5E3C;
+    }
+    .bg-navy {
+      background-color: #2C5282;
+    }
+    .text-navy {
+      color: #2C5282;
+    }
+    .bg-softgray {
+      background-color: #A0AEC0;
+    }
+    .text-secondary {
+      color: #6B7280;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-12 fade-in">
+      <h1 class="text-3xl md:text-4xl font-bold mb-4">Ini Rutinitas Perawatan Manstream yang Tepat untuk Anda!</h1>
+      <p class="text-secondary text-lg max-w-3xl mx-auto">
+        Berdasarkan jawaban Anda dalam kuis, kami telah menyusun rangkaian produk yang paling sesuai dengan kebutuhan dan kondisi kulit Anda. Berikut adalah rekomendasi personal kami untuk rutinitas perawatan diri Anda.
+      </p>
+    </div>
+    <!-- User Profile Summary -->
+    <div class="bg-gray-50 rounded-xl p-6 mb-12 fade-in" style="animation-delay: 0.2s;">
+      <h2 class="text-xl font-semibold mb-4">Profil Perawatan Anda</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div>
+          <h3 class="text-sm font-medium text-secondary mb-1">Kondisi Kulit</h3>
+          <p class="text-primary font-medium" id="skin-condition">-</p>
+        </div>
+        <div>
+          <h3 class="text-sm font-medium text-secondary mb-1">Masalah Utama</h3>
+          <p class="text-primary font-medium" id="skin-issues">-</p>
+        </div>
+        <div>
+          <h3 class="text-sm font-medium text-secondary mb-1">Aktivitas Luar Ruangan</h3>
+          <p class="text-primary font-medium" id="outdoor-activity">-</p>
+        </div>
+      </div>
+    </div>
+    <!-- Product Recommendations -->
+    <div class="mb-16">
+      <h2 class="text-2xl font-semibold mb-8 text-center">Rekomendasi Produk Personal</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Product 1: Facial Cleanser -->
+        <div class="product-card bg-white rounded-xl shadow-md overflow-hidden fade-in" style="animation-delay: 0.3s;">
+          <div class="product-image h-64 bg-softgray relative">
+            <div class="absolute inset-0 flex items-center justify-center text-white text-opacity-30">
+              <i class="fas fa-pump-soap text-6xl"></i>
+            </div>
+            <div class="product-tag bg-accent text-white text-xs font-bold px-3 py-1 rounded-full">BESTSELLER</div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Facial Cleanser</h3>
+            <p class="text-secondary mb-4" id="cleanser-description">Pembersih wajah dengan formula lembut yang dirancang khusus untuk kulit Anda. Membersihkan kotoran dan minyak berlebih tanpa membuat kulit kering.</p>
+            <div class="flex justify-between items-center mb-6">
+              <span class="text-lg font-bold">Rp 129.000</span>
+              <span class="text-sm text-secondary line-through">Rp 149.000</span>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <a href="https://shopee.co.id" target="_blank" class="cta-button bg-accent text-white text-center py-2 px-4 rounded-md font-medium hover:bg-opacity-90 flex items-center justify-center"><i class="fas fa-shopping-bag mr-2"></i> BELI DI SHOPEE</a>
+              <a href="https://tokopedia.com" target="_blank" class="cta-button border-2 border-accent text-accent text-center py-2 px-4 rounded-md font-medium hover:bg-accent hover:text-white flex items-center justify-center"><i class="fas fa-shopping-cart mr-2"></i> BELI DI TOKOPEDIA</a>
+            </div>
+          </div>
+        </div>
+        <!-- Product 2: Moisturizer -->
+        <div class="product-card bg-white rounded-xl shadow-md overflow-hidden fade-in" style="animation-delay: 0.4s;">
+          <div class="product-image h-64 bg-softgray relative">
+            <div class="absolute inset-0 flex items-center justify-center text-white text-opacity-30">
+              <i class="fas fa-spray-can text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Moisturizer</h3>
+            <p class="text-secondary mb-4" id="moisturizer-description">Pelembab ringan non-berminyak yang menjaga kelembapan kulit sepanjang hari. Diformulasikan dengan bahan alami yang menenangkan kulit.</p>
+            <div class="flex justify-between items-center mb-6">
+              <span class="text-lg font-bold">Rp 149.000</span>
+              <span class="text-sm text-secondary line-through">Rp 179.000</span>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <a href="https://shopee.co.id" target="_blank" class="cta-button bg-accent text-white text-center py-2 px-4 rounded-md font-medium hover:bg-opacity-90 flex items-center justify-center"><i class="fas fa-shopping-bag mr-2"></i> BELI DI SHOPEE</a>
+              <a href="https://tokopedia.com" target="_blank" class="cta-button border-2 border-accent text-accent text-center py-2 px-4 rounded-md font-medium hover:bg-accent hover:text-white flex items-center justify-center"><i class="fas fa-shopping-cart mr-2"></i> BELI DI TOKOPEDIA</a>
+            </div>
+          </div>
+        </div>
+        <!-- Product 3: Sunscreen -->
+        <div class="product-card bg-white rounded-xl shadow-md overflow-hidden fade-in" style="animation-delay: 0.5s;" id="sunscreen-product">
+          <div class="product-image h-64 bg-softgray relative">
+            <div class="absolute inset-0 flex items-center justify-center text-white text-opacity-30">
+              <i class="fas fa-sun text-6xl"></i>
+            </div>
+            <div class="product-tag bg-navy text-white text-xs font-bold px-3 py-1 rounded-full">REKOMENDASI UTAMA</div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Sunscreen SPF 50</h3>
+            <p class="text-secondary mb-4" id="sunscreen-description">Perlindungan UV tanpa residu putih, cocok untuk aktivitas outdoor. Melindungi kulit dari sinar matahari dan polusi.</p>
+            <div class="flex justify-between items-center mb-6">
+              <span class="text-lg font-bold">Rp 179.000</span>
+              <span class="text-sm text-secondary line-through">Rp 199.000</span>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <a href="https://shopee.co.id" target="_blank" class="cta-button bg-accent text-white text-center py-2 px-4 rounded-md font-medium hover:bg-opacity-90 flex items-center justify-center"><i class="fas fa-shopping-bag mr-2"></i> BELI DI SHOPEE</a>
+              <a href="https://tokopedia.com" target="_blank" class="cta-button border-2 border-accent text-accent text-center py-2 px-4 rounded-md font-medium hover:bg-accent hover:text-white flex items-center justify-center"><i class="fas fa-shopping-cart mr-2"></i> BELI DI TOKOPEDIA</a>
+            </div>
+          </div>
+        </div>
+        <!-- Product 4: Beard Oil (Conditional) -->
+        <div class="product-card bg-white rounded-xl shadow-md overflow-hidden fade-in hidden" id="beard-product" style="animation-delay: 0.6s;">
+          <div class="product-image h-64 bg-softgray relative">
+            <div class="absolute inset-0 flex items-center justify-center text-white text-opacity-30">
+              <i class="fas fa-leaf text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Beard Oil</h3>
+            <p class="text-secondary mb-4" id="beard-description">Minyak jenggot dengan aroma kayu yang maskulin dan menenangkan. Menjaga jenggot tetap lembut, rapi, dan mudah diatur.</p>
+            <div class="flex justify-between items-center mb-6">
+              <span class="text-lg font-bold">Rp 159.000</span>
+              <span class="text-sm text-secondary line-through">Rp 189.000</span>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <a href="https://shopee.co.id" target="_blank" class="cta-button bg-accent text-white text-center py-2 px-4 rounded-md font-medium hover:bg-opacity-90 flex items-center justify-center"><i class="fas fa-shopping-bag mr-2"></i> BELI DI SHOPEE</a>
+              <a href="https://tokopedia.com" target="_blank" class="cta-button border-2 border-accent text-accent text-center py-2 px-4 rounded-md font-medium hover:bg-accent hover:text-white flex items-center justify-center"><i class="fas fa-shopping-cart mr-2"></i> BELI DI TOKOPEDIA</a>
+            </div>
+          </div>
+        </div>
+        <!-- Product 5: Breath Freshener (Conditional) -->
+        <div class="product-card bg-white rounded-xl shadow-md overflow-hidden fade-in hidden" id="breath-product" style="animation-delay: 0.7s;">
+          <div class="product-image h-64 bg-softgray relative">
+            <div class="absolute inset-0 flex items-center justify-center text-white text-opacity-30">
+              <i class="fas fa-wind text-6xl"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Breath Freshener</h3>
+            <p class="text-secondary mb-4" id="breath-description">Penyegar napas alami dengan ekstrak mint dan herbal. Menjaga napas tetap segar sepanjang hari, terutama setelah makan atau saat berpuasa.</p>
+            <div class="flex justify-between items-center mb-6">
+              <span class="text-lg font-bold">Rp 89.000</span>
+              <span class="text-sm text-secondary line-through">Rp 109.000</span>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <a href="https://shopee.co.id" target="_blank" class="cta-button bg-accent text-white text-center py-2 px-4 rounded-md font-medium hover:bg-opacity-90 flex items-center justify-center"><i class="fas fa-shopping-bag mr-2"></i> BELI DI SHOPEE</a>
+              <a href="https://tokopedia.com" target="_blank" class="cta-button border-2 border-accent text-accent text-center py-2 px-4 rounded-md font-medium hover:bg-accent hover:text-white flex items-center justify-center"><i class="fas fa-shopping-cart mr-2"></i> BELI DI TOKOPEDIA</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Routine Guide -->
+    <div class="bg-gray-50 rounded-xl p-8 mb-16 fade-in" style="animation-delay: 0.8s;">
+      <h2 class="text-2xl font-semibold mb-6 text-center">Panduan Rutinitas Harian</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Morning Routine -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4 flex items-center"><i class="fas fa-sun text-accent mr-3"></i> Rutinitas Pagi</h3>
+          <ol class="space-y-4">
+            <li class="flex">
+              <span class="bg-accent bg-opacity-10 text-accent font-semibold rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+              <div>
+                <p class="font-medium">Facial Cleanser</p>
+                <p class="text-secondary text-sm">Bersihkan wajah dengan air hangat untuk menghilangkan minyak yang terakumulasi saat tidur.</p>
+              </div>
+            </li>
+            <li class="flex">
+              <span class="bg-accent bg-opacity-10 text-accent font-semibold rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+              <div>
+                <p class="font-medium">Moisturizer</p>
+                <p class="text-secondary text-sm">Aplikasikan pelembab ke seluruh wajah dan leher dengan gerakan ke atas.</p>
+              </div>
+            </li>
+            <li class="flex">
+              <span class="bg-accent bg-opacity-10 text-accent font-semibold rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+              <div>
+                <p class="font-medium">Sunscreen</p>
+                <p class="text-secondary text-sm">Oleskan sunscreen secukupnya 15 menit sebelum beraktivitas di luar ruangan.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+        <!-- Evening Routine -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4 flex items-center"><i class="fas fa-moon text-navy mr-3"></i> Rutinitas Malam</h3>
+          <ol class="space-y-4">
+            <li class="flex">
+              <span class="bg-navy bg-opacity-10 text-navy font-semibold rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+              <div>
+                <p class="font-medium">Facial Cleanser</p>
+                <p class="text-secondary text-sm">Bersihkan wajah untuk menghilangkan kotoran, minyak, dan sisa sunscreen.</p>
+              </div>
+            </li>
+            <li class="flex">
+              <span class="bg-navy bg-opacity-10 text-navy font-semibold rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+              <div>
+                <p class="font-medium">Moisturizer</p>
+                <p class="text-secondary text-sm">Aplikasikan pelembab lebih tebal untuk nutrisi kulit saat tidur.</p>
+              </div>
+            </li>
+            <li class="flex beard-routine hidden">
+              <span class="bg-navy bg-opacity-10 text-navy font-semibold rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+              <div>
+                <p class="font-medium">Beard Oil</p>
+                <p class="text-secondary text-sm">Aplikasikan beberapa tetes minyak jenggot dan pijat lembut untuk nutrisi optimal.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- Call to Action -->
+    <div class="text-center mb-16 fade-in" style="animation-delay: 0.9s;">
+      <h2 class="text-xl font-semibold mb-4">Tidak yakin atau butuh saran lebih lanjut?</h2>
+      <p class="text-secondary mb-6">Hubungi tim dukungan personal kami untuk mendapatkan konsultasi lebih mendalam tentang kebutuhan perawatan diri Anda.</p>
+      <a href="https://wa.me/6281234567890" target="_blank" class="inline-flex items-center bg-green-500 text-white px-6 py-3 rounded-md font-medium hover:bg-green-600 transition-colors duration-300"><i class="fab fa-whatsapp text-xl mr-3"></i> Hubungi via WhatsApp</a>
+    </div>
+    <!-- Additional Products -->
+    <div class="mb-16 fade-in" style="animation-delay: 1s;">
+      <h2 class="text-2xl font-semibold mb-8 text-center">Produk Pelengkap</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Complementary Product 1 -->
+        <div class="bg-white rounded-lg shadow-sm p-4 flex items-center">
+          <div class="w-16 h-16 bg-softgray rounded-md flex items-center justify-center mr-4 flex-shrink-0">
+            <i class="fas fa-soap text-white text-opacity-50 text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="font-medium mb-1">Body Wash</h3>
+            <p class="text-secondary text-sm mb-2">Sabun mandi dengan formula halal</p>
+            <span class="text-accent font-semibold">Rp 119.000</span>
+          </div>
+        </div>
+        <!-- Complementary Product 2 -->
+        <div class="bg-white rounded-lg shadow-sm p-4 flex items-center">
+          <div class="w-16 h-16 bg-softgray rounded-md flex items-center justify-center mr-4 flex-shrink-0">
+            <i class="fas fa-magic text-white text-opacity-50 text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="font-medium mb-1">Serum Wajah</h3>
+            <p class="text-secondary text-sm mb-2">Dengan vitamin C untuk kulit cerah</p>
+            <span class="text-accent font-semibold">Rp 199.000</span>
+          </div>
+        </div>
+        <!-- Complementary Product 3 -->
+        <div class="bg-white rounded-lg shadow-sm p-4 flex items-center">
+          <div class="w-16 h-16 bg-softgray rounded-md flex items-center justify-center mr-4 flex-shrink-0">
+            <i class="fas fa-shower text-white text-opacity-50 text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="font-medium mb-1">Shampoo</h3>
+            <p class="text-secondary text-sm mb-2">Untuk rambut sehat dan berkilau</p>
+            <span class="text-accent font-semibold">Rp 139.000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="bg-gray-100 py-8">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <p class="text-secondary text-sm mb-4 md:mb-0">&copy; 2023 Manstream. Hak Cipta Dilindungi.</p>
+      <div class="flex space-x-6">
+        <a href="#" class="text-secondary text-sm hover:text-accent transition-colors duration-300">Syarat & Ketentuan</a>
+        <a href="#" class="text-secondary text-sm hover:text-accent transition-colors duration-300">Kebijakan Privasi</a>
+        <a href="#" class="text-secondary text-sm hover:text-accent transition-colors duration-300">FAQ</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get quiz data from localStorage
+    const quizData = JSON.parse(localStorage.getItem('manstream_quiz_data')) || {};
+
+    // Update user profile summary
+    document.getElementById('skin-condition').textContent = formatValue(quizData.skin_condition) || 'Normal';
+
+    // Format skin issues
+    if (quizData.skin_issues && Array.isArray(quizData.skin_issues)) {
+      document.getElementById('skin-issues').textContent = quizData.skin_issues.map(formatValue).join(', ');
+    } else if (quizData.skin_issues) {
+      document.getElementById('skin-issues').textContent = formatValue(quizData.skin_issues);
+    } else {
+      document.getElementById('skin-issues').textContent = 'Umum';
+    }
+
+    document.getElementById('outdoor-activity').textContent = formatValue(quizData.outdoor_activity) || 'Sedang';
+
+    // Personalize product descriptions based on quiz answers
+    personalizeProducts(quizData);
+
+    // Show/hide conditional products
+    if (quizData.has_beard === 'ya') {
+      document.getElementById('beard-product').classList.remove('hidden');
+      document.querySelectorAll('.beard-routine').forEach(el => el.classList.remove('hidden'));
+      // Personalize beard oil description based on beard condition
+      if (quizData.beard_condition) {
+        const beardDescriptions = {
+          'kering': 'Minyak jenggot dengan formula pelembab intensif untuk jenggot kering dan kasar. Menjadikan jenggot lebih lembut dan mudah diatur.',
+          'sulit-diatur': 'Minyak jenggot dengan formula khusus untuk jenggot yang sulit diatur. Memberikan kontrol dan bentuk yang rapi sepanjang hari.',
+          'gatal': 'Minyak jenggot dengan formula menenangkan untuk mengurangi rasa gatal dan iritasi pada kulit di bawah jenggot.',
+          'normal': 'Minyak jenggot dengan aroma kayu yang maskulin dan menenangkan. Menjaga jenggot tetap lembut, rapi, dan mudah diatur.'
+        };
+        document.getElementById('beard-description').textContent = beardDescriptions[quizData.beard_condition] || beardDescriptions.normal;
+      }
+    }
+    if (quizData.breath_condition === 'tidak-segar' || quizData.breath_condition === 'cukup-segar') {
+      document.getElementById('breath-product').classList.remove('hidden');
+    }
+    // Fade-in animation for elements when they come into view
+    const fadeElements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeElements.forEach(element => {
+      element.style.opacity = '0';
+      element.style.transform = 'translateY(20px)';
+      element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(element);
+    });
+  });
+  // Format values for display
+  function formatValue(value) {
+    if (!value) return '';
+    // Replace hyphens with spaces and capitalize first letter of each word
+    return value.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  }
+  // Personalize product descriptions based on quiz answers
+  function personalizeProducts(quizData) {
+    // Personalize cleanser description
+    if (quizData.skin_condition) {
+      const cleanserDescriptions = {
+        'berminyak': 'Pembersih wajah dengan formula khusus untuk kulit berminyak. Mengontrol produksi sebum dan membersihkan pori-pori tanpa membuat kulit kering.',
+        'kering': 'Pembersih wajah dengan formula lembut dan pelembab untuk kulit kering. Membersihkan kotoran tanpa menghilangkan kelembapan alami kulit.',
+        'kombinasi': 'Pembersih wajah dengan formula seimbang untuk kulit kombinasi. Membersihkan area berminyak sekaligus menjaga kelembapan area kering.',
+        'normal': 'Pembersih wajah dengan formula lembut yang dirancang untuk kulit normal. Membersihkan kotoran dan minyak berlebih tanpa membuat kulit kering.',
+        'sensitif': 'Pembersih wajah dengan formula hypoallergenic untuk kulit sensitif. Membersihkan dengan lembut tanpa menyebabkan iritasi atau kemerahan.'
+      };
+      document.getElementById('cleanser-description').textContent = cleanserDescriptions[quizData.skin_condition] || cleanserDescriptions.normal;
+    }
+    // Personalize moisturizer description
+    if (quizData.skin_condition) {
+      const moisturizerDescriptions = {
+        'berminyak': 'Pelembab oil-free yang ringan dan cepat menyerap. Memberikan hidrasi tanpa membuat wajah terlihat berminyak atau mengkilap.',
+        'kering': 'Pelembab intensif dengan formula kaya yang memberikan hidrasi mendalam untuk kulit kering. Menjaga kelembapan kulit sepanjang hari.',
+        'kombinasi': 'Pelembab seimbang yang memberikan hidrasi di area kering dan mengontrol kilap di area berminyak. Tekstur ringan dan cepat menyerap.',
+        'normal': 'Pelembab ringan non-berminyak yang menjaga kelembapan kulit sepanjang hari. Diformulasikan dengan bahan alami yang menenangkan kulit.',
+        'sensitif': 'Pelembab hypoallergenic tanpa pewangi untuk kulit sensitif. Menenangkan dan melembabkan kulit tanpa menyebabkan iritasi.'
+      };
+      document.getElementById('moisturizer-description').textContent = moisturizerDescriptions[quizData.skin_condition] || moisturizerDescriptions.normal;
+    }
+    // Personalize sunscreen description based on outdoor activity
+    if (quizData.outdoor_activity) {
+      const sunscreenDescriptions = {
+        'jarang': 'Sunscreen ringan SPF 30 yang nyaman untuk penggunaan sehari-hari. Melindungi kulit dari paparan sinar UV saat beraktivitas singkat di luar ruangan.',
+        'kadang': 'Sunscreen SPF 50 dengan perlindungan broad spectrum. Tahan air hingga 40 menit, ideal untuk aktivitas outdoor yang moderat.',
+        'sering': 'Sunscreen SPF 50+ dengan teknologi ultra-protection dan tahan air hingga 80 menit. Dirancang khusus untuk aktivitas outdoor yang intens dan berkepanjangan.'
+      };
+      document.getElementById('sunscreen-description').textContent = sunscreenDescriptions[quizData.outdoor_activity] || sunscreenDescriptions.kadang;
+    }
+    // Personalize breath freshener description
+    if (quizData.breath_condition) {
+      const breathDescriptions = {
+        'tidak-segar': 'Penyegar napas premium dengan formula kuat yang bekerja cepat dan tahan lama. Mengatasi bau mulut dan memberikan kesegaran maksimal sepanjang hari.',
+        'cukup-segar': 'Penyegar napas alami dengan ekstrak mint dan herbal. Menjaga napas tetap segar sepanjang hari, terutama setelah makan atau saat berpuasa.',
+        'sangat-segar': 'Penyegar napas ringan dengan formula natural untuk menjaga kesegaran napas. Sempurna untuk penggunaan sehari-hari.'
+      };
+      if (document.getElementById('breath-description')) {
+        document.getElementById('breath-description').textContent = breathDescriptions[quizData.breath_condition] || breathDescriptions['cukup-segar'];
+      }
+    }
+  }
+</script>
+</body>
+</html> 
